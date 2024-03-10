@@ -34,7 +34,7 @@ AFRAME.registerComponent('spinner', {
 
 	init: function()
 	{
-		this.el.object3D.scale.set(0.75, 0.75, 0.75);
+		this.el.object3D.scale.set(2, 2, 2);
 	},
 	
 	tick: function (time, timeDelta) 
@@ -58,10 +58,8 @@ AFRAME.registerComponent('spinner', {
         <a-sphere 
                id="earth"
                position="0 0.5 0"
-               scale="20 20 20" 
                material="src: #earth-sphere; transparent: true; opacity: 0.95;"
                spinner >
-               
         </a-sphere>
     </a-marker>
     
