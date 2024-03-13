@@ -44,6 +44,41 @@ AFRAME.registerComponent('spinner', {
     
 });
 
+// Adjusted component to account for globe scaling
+AFRAME.registerComponent('line-to-zurich', {
+    schema: {
+        target: {type: 'selector'},
+        startPoint: {type: 'vec3'},
+        endPoint: {type: 'vec3'},
+        color: {type: 'color', default: '#FF0000'}
+    },
+    
+    init: function() {
+        let line = document.createElement('a-entity');
+        line.setAttribute('line', `start: ${JSON.stringify(this.data.startPoint)}; end: ${JSON.stringify(this.data.endPoint)}; color: ${this.data.color}`);
+        this.el.appendChild(line);
+        this.line = line;
+    },
+
+    tick: function() {
+        let globeRotationY = this.data.target.object3D.rotation.y;
+        let radianOffset = globeRotationY; // Assuming Zurich's position offset in radians
+        let endPoint = this.calculateEndPoint(radianOffset);
+        this.line.setAttribute('line', `start: ${JSON.stringify(this.data.startPoint)}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
+    },
+
+    calculateEndPoint: function(rotationY) {
+        // Adjust for the globe's scale
+        let scale = 2;
+        let radius = 0.5 * scale; // Adjusting radius for scale
+        let x = radius * Math.sin(rotationY);
+        let z = radius * Math.cos(rotationY) - (0.05 * scale); // Adjusting initial Z position for scale
+        // Adjust Y position for scale, if necessary
+        let y = 0.75 * scale;
+        return {x: x, y: y, z: z};
+    }
+});
+
 
 </script>
 
@@ -56,11 +91,22 @@ AFRAME.registerComponent('spinner', {
     
     <a-marker type="barcode" value="6">
         <a-sphere 
-               id="earth"
-               position="0 0.5 0"
-               material="src: #earth-sphere; transparent: true; opacity: 0.95;"
-               spinner >
+           id="earth"
+           position="0 0.5 0"
+           material="src: #earth-sphere; transparent: true; opacity: 0.95;"
+           spinner >
         </a-sphere>
+
+        <!-- Adding Irchel Campus text in red -->
+        <a-text value="Irchel Campus"
+            color="red"
+            position="0 1.2 0"
+            align="center"
+            width="4">
+        </a-text>
+
+        <!-- Drawing a red line pointing to Zurich -->
+        <a-entity line="start: 0, 0.5, 0; end: 0.05, 0.75, -0.05; color: red"></a-entity>
     </a-marker>
     
     <a-entity camera></a-entity>
