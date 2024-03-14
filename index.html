@@ -13,7 +13,6 @@ AFRAME.registerComponent('spinner', {
 	init: function()
 	{
 		this.el.object3D.scale.set(1.5, 1.5, 1.5);
-
         this.line = document.querySelector('#line-to-zurich');
 	},
 	
@@ -43,50 +42,9 @@ AFRAME.registerComponent('spinner', {
         const y = globeCenterY + radius * Math.cos(latRad);
         const z = radius * Math.sin(latRad) * Math.sin(lonRad);
 
-        return { x: x, y: y, z: z };
+        return { x: x, y: y, z: -z };
     }
 });
-
-// Adjusted component to account for globe scaling
-// AFRAME.registerComponent('spinner2', {
-//     schema: {
-//         target: {type: 'selector'},
-//         startPoint: {type: 'vec3'},
-//         color: {type: 'color', default: '#FF0000'}
-//     },
-    
-//     init: function() {
-//         this.line = document.querySelector('#line-to-zurich');
-//         console.log("Hello");
-//         console.log(this.line);
-//     },
-
-//     tick: function(time, timeDelta) {
-//         const latitude = 47.3769; // Zurich's latitude
-//         const longitude = 8.5417; // Zurich's longitude
-//         let globeRotationY = this.data.target.object3D.rotation.y;
-//         let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
-//         // Ensure we're updating the line component correctly
-//         this.line.setAttribute('line', `start: ${this.data.startPoint.x} ${this.data.startPoint.y} ${this.data.startPoint.z}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
-//     },
-
-//     calculateEndPoint: function(latitude, longitude, globeRotationY) {
-//         const globeScale = 1.5; // Adjust as necessary
-//         const radius = 1.5; // Globe's radius adjusted for scale
-//         const globeCenterY = 0.5; // Globe's center Y position
-
-//         // Convert latitude and longitude to radians
-//         const latRad = Math.PI / 2 - THREE.Math.degToRad(latitude);
-//         const lonRad = THREE.Math.degToRad(longitude) - globeRotationY;
-
-//         // Spherical to Cartesian conversion
-//         const x = radius * Math.sin(latRad) * Math.cos(lonRad);
-//         const y = globeCenterY + radius * Math.cos(latRad);
-//         const z = radius * Math.sin(latRad) * Math.sin(lonRad);
-
-//         return { x: x, y: y, z: z };
-//     }
-// });
 
 </script>
 
