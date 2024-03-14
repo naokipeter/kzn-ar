@@ -7,28 +7,6 @@
 
 <script>
 
-AFRAME.registerComponent('updater', {
-
-	init: function()
-	{
-        // declare variable for later access
-		this.num = 0;
-        // you can also access the underlying 3D object of a scene object,
-        //   for example:
-		// let target = document.querySelector('#earth').object3D;
-        // target.scale.set( 0.75, 0.75, 0.75 );
-	},
-	
-    // time      = total time since init (milliseconds)
-    // timeDelta = time since last tick
-	tick: function (time, timeDelta) 
-	{
-		this.num += 1;
-        // console.log( this.num );
-	}
-	
-});
-
 // access underlying 3D object this component is attached to
 AFRAME.registerComponent('spinner', {
 
@@ -60,12 +38,12 @@ AFRAME.registerComponent('line-to-zurich', {
     },
 
     tick: function(time, timeDelta) {
-    const latitude = 47.3769; // Zurich's latitude
-    const longitude = 8.5417; // Zurich's longitude
-    let globeRotationY = this.data.target.object3D.rotation.y;
-    let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
-    // Ensure we're updating the line component correctly
-    this.line.setAttribute('line', `start: ${this.data.startPoint.x} ${this.data.startPoint.y} ${this.data.startPoint.z}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
+        const latitude = 47.3769; // Zurich's latitude
+        const longitude = 8.5417; // Zurich's longitude
+        let globeRotationY = this.data.target.object3D.rotation.y;
+        let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
+        // Ensure we're updating the line component correctly
+        this.line.setAttribute('line', `start: ${this.data.startPoint.x} ${this.data.startPoint.y} ${this.data.startPoint.z}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
     },
 
     calculateEndPoint: function(latitude, longitude, globeRotationY) {
@@ -117,10 +95,6 @@ AFRAME.registerComponent('line-to-zurich', {
     </a-marker>
     
     <a-entity camera></a-entity>
-    
-    <!-- empty entity, running previously declared script -->
-    <a-entity updater></a-entity>
-    
     
     
 </a-scene>
