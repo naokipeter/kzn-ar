@@ -60,16 +60,12 @@ AFRAME.registerComponent('line-to-zurich', {
     },
 
     tick: function(time, timeDelta) {
-        // Zurich's latitude and longitude
-        const latitude = 47.3769;
-        const longitude = 8.5417;
-        let globeRotationY = this.data.target.object3D.rotation.y;
-        let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
-        this.line.setAttribute('line', {
-            start: this.data.startPoint,
-            end: `${endPoint.x} ${endPoint.y} ${endPoint.z}`,
-            color: this.data.color
-        });
+    const latitude = 47.3769; // Zurich's latitude
+    const longitude = 8.5417; // Zurich's longitude
+    let globeRotationY = this.data.target.object3D.rotation.y;
+    let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
+    // Ensure we're updating the line component correctly
+    this.line.setAttribute('line', `start: ${this.data.startPoint.x} ${this.data.startPoint.y} ${this.data.startPoint.z}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
     },
 
     calculateEndPoint: function(latitude, longitude, globeRotationY) {
