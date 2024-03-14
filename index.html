@@ -35,7 +35,7 @@ AFRAME.registerComponent('spinner', {
 
         // Convert latitude and longitude to radians
         const latRad = Math.PI / 2 - THREE.Math.degToRad(latitude);
-        const lonRad = THREE.Math.degToRad(longitude) - globeRotationY;
+        const lonRad = -(THREE.Math.degToRad(longitude) - globeRotationY);
 
         // Spherical to Cartesian conversion
         const x = radius * Math.sin(latRad) * Math.cos(lonRad);
