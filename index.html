@@ -61,10 +61,10 @@ AFRAME.registerComponent('line-to-zurich', {
     },
 
     tick: function() {
-        let globeRotationY = this.data.target.object3D.rotation.y;
-        let radianOffset = globeRotationY; // Assuming Zurich's position offset in radians
-        let endPoint = this.calculateEndPoint(radianOffset);
-        this.line.setAttribute('line', `start: ${JSON.stringify(this.data.startPoint)}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
+        // let globeRotationY = this.data.target.object3D.rotation.y;
+        // let radianOffset = globeRotationY; // Assuming Zurich's position offset in radians
+        // let endPoint = this.calculateEndPoint(radianOffset);
+        // this.line.setAttribute('line', `start: ${JSON.stringify(this.data.startPoint)}; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: ${this.data.color}`);
     },
 
     calculateEndPoint: function(rotationY) {
@@ -106,7 +106,7 @@ AFRAME.registerComponent('line-to-zurich', {
         </a-text>
 
         <!-- Drawing a red line pointing to Zurich -->
-        <a-entity line="start: 0, 1.875, 0; end: 0.502, 1.052, 0.075; color: red"></a-entity>
+        <a-entity line="start: 0 2.5 0; end: 0.502, 1.052, 0.075; color: red"></a-entity>
     </a-marker>
     
     <a-entity camera></a-entity>
