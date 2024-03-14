@@ -39,7 +39,7 @@ AFRAME.registerComponent('spinner', {
 	
 	tick: function (time, timeDelta) 
 	{
-		this.el.object3D.rotation.y += 0.01
+		//this.el.object3D.rotation.y += 0.01
 	}
     
 });
@@ -69,7 +69,7 @@ AFRAME.registerComponent('line-to-zurich', {
 
     calculateEndPoint: function(rotationY) {
         // Adjust for the globe's scale
-        let scale = 2;
+        let scale = 1.5;
         let radius = 0.5 * scale; // Adjusting radius for scale
         let x = radius * Math.sin(rotationY);
         let z = radius * Math.cos(rotationY) - (0.05 * scale); // Adjusting initial Z position for scale
@@ -106,7 +106,7 @@ AFRAME.registerComponent('line-to-zurich', {
         </a-text>
 
         <!-- Drawing a red line pointing to Zurich -->
-        <a-entity line="start: 0, 0.5, 0; end: 0.05, 0.75, -0.05; color: red"></a-entity>
+        <a-entity line="start: 0, 1.875, 0; end: 0.502, 1.052, 0.075; color: red"></a-entity>
     </a-marker>
     
     <a-entity camera></a-entity>
