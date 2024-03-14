@@ -40,9 +40,9 @@ AFRAME.registerComponent('spinner', {
         // Spherical to Cartesian conversion
         const x = radius * Math.sin(latRad) * Math.cos(lonRad);
         const y = globeCenterY + radius * Math.cos(latRad);
-        const z = radius * Math.sin(latRad) * Math.sin(lonRad);
+        const z = -radius * Math.sin(latRad) * Math.sin(lonRad);
 
-        return { x: x, y: y, z: -z };
+        return { x: x, y: y, z: z };
     }
 });
 
