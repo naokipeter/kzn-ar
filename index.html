@@ -18,7 +18,7 @@ AFRAME.registerComponent('spinner', {
 	
 	tick: function (time, timeDelta) 
 	{
-		this.el.object3D.rotation.y += 0.01
+		//this.el.object3D.rotation.y += 0.01
 
         const latitude = 47.3769; // Zurich's latitude
         const longitude = 8.5417; // Zurich's longitude
@@ -44,12 +44,54 @@ AFRAME.registerComponent('spinner', {
 
         return { x: x, y: y, z: z };
     }
+
 });
 
+AFRAME.registerComponent("gesture-handler", {
+    schema: {
+        enabled: { default: true },
+        rotationFactor: { default: 5 },
+    },
+
+    init: function () {
+        this.handleRotation = this.handleRotation.bind(this);
+
+        this.isVisible = false;
+
+        this.el.sceneEl.addEventListener("markerFound", (e) => {
+          this.isVisible = true;
+        });
+
+        this.el.sceneEl.addEventListener("markerLost", (e) => {
+          this.isVisible = false;
+        });
+    },
+
+    update: function () {
+        if (this.data.enabled) {
+            this.el.sceneEl.addEventListener("onefingermove", this.handleRotation);
+        } else {
+            this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+        }
+    },
+
+    remove: function () {
+        this.el.sceneEl.removeEventListener("onefingermove", this.handleRotation);
+    },
+
+    handleRotation: function (event) {
+        if (this.isVisible) {
+            this.el.object3D.rotation.y +=
+                event.detail.positionChange.x * this.data.rotationFactor;
+            // this.el.object3D.rotation.x +=
+            //     event.detail.positionChange.y * this.data.rotationFactor;
+        }
+    }
+});
 </script>
 
 
-<a-scene embedded vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true"arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+<a-scene embedded vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true"arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;' gesture-detector>
 
     <a-assets>
 		<img id="earth-sphere" src="images/earth-sphere.jpg" />
@@ -61,6 +103,7 @@ AFRAME.registerComponent('spinner', {
            position="0 0.5 0"
            rotation="0 100 0"
            material="src: #earth-sphere; transparent: true; opacity: 0.95;"
+           gesture-handler
            spinner>
         </a-sphere>
 
