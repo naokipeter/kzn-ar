@@ -33,10 +33,10 @@ AFRAME.registerComponent('spinner', {
         let endPoint = this.calculateEndPoint(latitude, longitude, globeRotationY);
         
         // Ensure we're updating the line component correctly
-        this.line.setAttribute('line', `start: 0 ${ scale > 1.5 ? scale/1.5*2.7 : 2.7} 0; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: red`);
+        this.line.setAttribute('line', `start: 0 ${ scale/1.5*2.7 } 0; end: ${endPoint.x} ${endPoint.y} ${endPoint.z}; color: red`);
 
         // Ensure we're updating the text component correctly
-        this.text.setAttribute('position', `0 ${ scale > 1.5 ? scale*2 : 3} 0`)
+        this.text.setAttribute('position', `0 ${ scale*2 } 0`)
 	  },
 
     calculateEndPoint: function(latitude, longitude, globeRotationY) {
